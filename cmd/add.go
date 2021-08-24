@@ -1,8 +1,10 @@
 package cmd
 
 import (
+	"bufio"
 	"fmt"
 	"log"
+	"os"
 	"time"
 
 	"github.com/apeiron242/todo/db"
@@ -22,11 +24,14 @@ func addData(args []string) {
 	var title string
 	var details string
 	time := time.Now().Format("2006-01-02 15:04:05")
+	scanner := bufio.NewScanner(os.Stdin)
 
 	fmt.Printf("\nWhat is the title? : ")
-	fmt.Scanln(&title)
+	scanner.Scan()
+	title = scanner.Text()
 	fmt.Printf("Write some Details : ")
-	fmt.Scanln(&details)
+	scanner.Scan()
+	details = scanner.Text()
 
 	data := models.Data{Title: title, Details: details, Time: time}
 

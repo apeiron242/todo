@@ -16,8 +16,10 @@ limitations under the License.
 package cmd
 
 import (
+	"bufio"
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/apeiron242/todo/db"
 	"github.com/spf13/cobra"
@@ -34,9 +36,11 @@ var deleteCmd = &cobra.Command{
 
 func deleteData() {
 	var title string
+	scanner := bufio.NewScanner(os.Stdin)
 
 	fmt.Printf("\nTitle : ")
-	fmt.Scanln(&title)
+	scanner.Scan()
+	title = scanner.Text()
 
 	db, err := db.ConnectDB()
 	if err != nil {
