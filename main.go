@@ -16,9 +16,22 @@ limitations under the License.
 package main
 
 import (
+	"log"
+	"os"
+
 	"github.com/apeiron242/todo/cmd"
 )
 
 func main() {
+	currentDir, err := os.Getwd()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = os.Setenv("todo", currentDir)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	cmd.Execute()
 }
